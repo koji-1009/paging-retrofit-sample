@@ -11,7 +11,7 @@ import com.star_zero.pagingretrofitsample.paging.RepoDataSourceFactory
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class MainViewModel: ViewModel() {
+class MainViewModel : ViewModel() {
 
     companion object {
         private val PAGE_SIZE = 50
