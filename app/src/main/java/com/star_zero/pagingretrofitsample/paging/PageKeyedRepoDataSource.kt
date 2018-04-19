@@ -5,29 +5,33 @@ import android.arch.paging.PageKeyedDataSource
 import com.star_zero.pagingretrofitsample.api.GitHubAPI
 import com.star_zero.pagingretrofitsample.data.NetworkState
 import com.star_zero.pagingretrofitsample.data.Repo
+import com.xwray.groupie.Item
 import timber.log.Timber
 import java.io.IOException
 
-class PageKeyedRepoDataSource(private val api: GitHubAPI) : PageKeyedDataSource<Int, Repo>() {
+class PageKeyedRepoDataSource<T: Item<*>>(
+    private val api: GitHubAPI,
+    private val converter: (Repo) -> T
+) : PageKeyedDataSource<Int, T>() {
 
     val networkState = MutableLiveData<NetworkState>()
 
-    override fun loadBefore(params: LoadParams<Int>, callback: LoadCallback<Int, Repo>) {
+    override fun loadBefore(params: LoadParams<Int>, callback: LoadCallback<Int, T>) {
         // 今回は使ってない
     }
 
-    override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, Repo>) {
+    override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, T>) {
         callAPI(params.key, params.requestedLoadSize) { repos, next ->
-            callback.onResult(repos, next)
+            callback.onResult(repos.map(converter), next)
         }
     }
 
     override fun loadInitial(
         params: LoadInitialParams<Int>,
-        callback: LoadInitialCallback<Int, Repo>
+        callback: LoadInitialCallback<Int, T>
     ) {
         callAPI(1, params.requestedLoadSize) { repos, next ->
-            callback.onResult(repos, null, next)
+            callback.onResult(repos.map(converter), null, next)
         }
     }
 

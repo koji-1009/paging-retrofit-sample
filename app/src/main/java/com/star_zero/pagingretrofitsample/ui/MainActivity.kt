@@ -6,15 +6,18 @@ import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.DividerItemDecoration
-import android.support.v7.widget.LinearLayoutManager
+import com.chibatching.pagedlistgroup.PagedListGroup
 import com.star_zero.pagingretrofitsample.R
 import com.star_zero.pagingretrofitsample.databinding.ActivityMainBinding
+import com.xwray.groupie.GroupAdapter
+import com.xwray.groupie.ViewHolder
 import timber.log.Timber
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private val adapter = RepoAdapter()
+
+    private val section = PagedListGroup<RepoItem>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,18 +25,21 @@ class MainActivity : AppCompatActivity() {
 
         val viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
 
-        binding.recycler.layoutManager = LinearLayoutManager(this)
-        binding.recycler.addItemDecoration(
-            DividerItemDecoration(
-                this,
-                DividerItemDecoration.VERTICAL
+        binding.recycler.apply {
+            addItemDecoration(
+                DividerItemDecoration(
+                    this@MainActivity,
+                    DividerItemDecoration.VERTICAL
+                )
             )
-        )
-        binding.recycler.adapter = adapter
+            adapter = GroupAdapter<ViewHolder>().apply {
+                add(section)
+            }
+        }
 
         viewModel.repos.observe(this, Observer { pagedList ->
             Timber.d("Receive Result")
-            adapter.submitList(pagedList)
+            section.submitList(pagedList)
         })
 
         viewModel.networkState.observe(this, Observer { networkState ->

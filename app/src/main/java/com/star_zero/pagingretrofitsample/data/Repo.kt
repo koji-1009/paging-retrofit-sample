@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 data class Repo(
     @SerializedName("id")
-    val id: String,
+    val id: Long,
     @SerializedName("full_name")
     val fullName: String
 )

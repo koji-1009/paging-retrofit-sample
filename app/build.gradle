@@ -39,6 +39,9 @@ dependencies {
 
     implementation 'com.jakewharton.timber:timber:4.7.0'
 
+    implementation 'com.xwray:groupie:2.0.3'
+    implementation 'com.xwray:groupie-databinding:2.0.3'
+
     implementation "android.arch.lifecycle:extensions:1.1.1"
     implementation "android.arch.lifecycle:viewmodel:1.1.1"
     kapt "android.arch.lifecycle:compiler:1.1.1"

@@ -17,7 +17,7 @@ class MainViewModel : ViewModel() {
         private val PAGE_SIZE = 50
     }
 
-    val repos: LiveData<PagedList<Repo>>
+    val repos: LiveData<PagedList<RepoItem>>
 
     val networkState: LiveData<NetworkState>
 
@@ -28,7 +28,7 @@ class MainViewModel : ViewModel() {
             .build()
         val api = retrofit.create(GitHubAPI::class.java)
 
-        val factory = RepoDataSourceFactory(api)
+        val factory = RepoDataSourceFactory(api, ::convertToItem)
         val config = PagedList.Config.Builder()
             .setInitialLoadSizeHint(PAGE_SIZE)
             .setPageSize(PAGE_SIZE)
@@ -37,4 +37,6 @@ class MainViewModel : ViewModel() {
         repos = LivePagedListBuilder(factory, config).build()
         networkState = factory.source.networkState
     }
+
+    private fun convertToItem(repo: Repo): RepoItem = RepoItem(repo)
 }
