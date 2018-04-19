@@ -1,3 +1,3 @@
-Paging Library + API(Retrofit) Sample
+Paging Library + API(Retrofit) + Groupie Sample
 ===
 
