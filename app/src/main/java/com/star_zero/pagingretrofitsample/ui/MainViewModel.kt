@@ -23,16 +23,16 @@ class MainViewModel : ViewModel() {
 
     init {
         val retrofit = Retrofit.Builder()
-                .baseUrl("https://api.github.com")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build()
+            .baseUrl("https://api.github.com")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
         val api = retrofit.create(GitHubAPI::class.java)
 
         val factory = RepoDataSourceFactory(api)
         val config = PagedList.Config.Builder()
-                .setInitialLoadSizeHint(PAGE_SIZE)
-                .setPageSize(PAGE_SIZE)
-                .build()
+            .setInitialLoadSizeHint(PAGE_SIZE)
+            .setPageSize(PAGE_SIZE)
+            .build()
 
         repos = LivePagedListBuilder(factory, config).build()
         networkState = factory.source.networkState

@@ -22,13 +22,20 @@ class PageKeyedRepoDataSource(private val api: GitHubAPI) : PageKeyedDataSource<
         }
     }
 
-    override fun loadInitial(params: LoadInitialParams<Int>, callback: LoadInitialCallback<Int, Repo>) {
+    override fun loadInitial(
+        params: LoadInitialParams<Int>,
+        callback: LoadInitialCallback<Int, Repo>
+    ) {
         callAPI(1, params.requestedLoadSize) { repos, next ->
             callback.onResult(repos, null, next)
         }
     }
 
-    private fun callAPI(page: Int, perPage: Int, callback: (repos: List<Repo>, next: Int?) -> Unit) {
+    private fun callAPI(
+        page: Int,
+        perPage: Int,
+        callback: (repos: List<Repo>, next: Int?) -> Unit
+    ) {
         Timber.d("page: $page, perPage: $perPage")
 
         networkState.postValue(NetworkState.RUNNING)
