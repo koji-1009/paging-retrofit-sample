@@ -17,7 +17,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
-    private val section = PagedListGroup<RepoItem>()
+    private val pagedListGroup = PagedListGroup<RepoItem>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,13 +33,13 @@ class MainActivity : AppCompatActivity() {
                 )
             )
             adapter = GroupAdapter<ViewHolder>().apply {
-                add(section)
+                add(pagedListGroup)
             }
         }
 
         viewModel.repos.observe(this, Observer { pagedList ->
             Timber.d("Receive Result")
-            section.submitList(pagedList)
+            pagedListGroup.submitList(pagedList)
         })
 
         viewModel.networkState.observe(this, Observer { networkState ->
