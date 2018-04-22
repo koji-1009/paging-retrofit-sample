@@ -108,10 +108,7 @@ public class PagedListGroup<T extends Item> implements Group, GroupDataObserver 
 
     @Override
     public void onItemInserted(@NonNull Group group, int position) {
-        int index = getItemPosition(group);
-        if (index >= 0) {
-            parentObserver.onItemInserted(this, index);
-        }
+        throw new UnsupportedOperationException();
     }
 
     @Override
@@ -132,42 +129,27 @@ public class PagedListGroup<T extends Item> implements Group, GroupDataObserver 
 
     @Override
     public void onItemRemoved(@NonNull Group group, int position) {
-        int index = getItemPosition(group);
-        if (index >= 0) {
-            parentObserver.onItemRemoved(this, index);
-        }
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public void onItemRangeChanged(@NonNull Group group, int positionStart, int itemCount) {
-        int index = getItemPosition(group);
-        if (index >= 0) {
-            parentObserver.onItemRangeChanged(this, index, itemCount);
-        }
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public void onItemRangeInserted(@NonNull Group group, int positionStart, int itemCount) {
-        int index = getItemPosition(group);
-        if (index >= 0) {
-            parentObserver.onItemRangeInserted(this, index, itemCount);
-        }
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public void onItemRangeRemoved(@NonNull Group group, int positionStart, int itemCount) {
-        int index = getItemPosition(group);
-        if (index >= 0) {
-            parentObserver.onItemRangeRemoved(this, index, itemCount);
-        }
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public void onItemMoved(@NonNull Group group, int fromPosition, int toPosition) {
-        int index = getItemPosition(group);
-        if (index >= 0) {
-            parentObserver.onItemMoved(this, index, toPosition);
-        }
+        throw new UnsupportedOperationException();
     }
 
     private int getItemPosition(@NonNull Group group) {
