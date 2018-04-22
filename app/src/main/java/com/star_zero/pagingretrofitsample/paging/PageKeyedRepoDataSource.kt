@@ -17,7 +17,7 @@ class PageKeyedRepoDataSource<T: Item<*>>(
     val networkState = MutableLiveData<NetworkState>()
 
     override fun loadBefore(params: LoadParams<Int>, callback: LoadCallback<Int, T>) {
-        // 今回は使ってない
+        // not used
     }
 
     override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, T>) {
@@ -47,13 +47,12 @@ class PageKeyedRepoDataSource<T: Item<*>>(
         var state = NetworkState.FAILED
 
         try {
-            // とりあえずGoogleのリポジトリ一覧を取得
+            // getting google's repository list
             val response = api.repos("google", page, perPage).execute()
 
             response.body()?.let {
                 var next: Int? = null
                 response.headers().get("Link")?.let {
-                    // Headerにnextがあるかで次ページ有無を判断
                     val regex = Regex("rel=\"next\"")
                     if (regex.containsMatchIn(it)) {
                         next = page + 1
@@ -67,7 +66,6 @@ class PageKeyedRepoDataSource<T: Item<*>>(
             Timber.w(e)
         }
 
-        // 結果を通知
         networkState.postValue(state)
     }
 
