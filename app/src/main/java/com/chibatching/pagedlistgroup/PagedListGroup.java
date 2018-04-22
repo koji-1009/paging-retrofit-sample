@@ -75,6 +75,7 @@ public class PagedListGroup<T extends Item> implements Group, GroupDataObserver 
     public Item getItem(int position) {
         Item item = differ.getItem(position);
         if (item != null) {
+            // TODO find more efficiency registration timing, and removing observer
             item.registerGroupDataObserver(this);
             return item;
         }
