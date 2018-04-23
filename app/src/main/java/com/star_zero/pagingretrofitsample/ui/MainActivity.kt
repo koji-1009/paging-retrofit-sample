@@ -6,14 +6,18 @@ import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.DividerItemDecoration
+import android.util.Log
 import com.chibatching.pagedlistgroup.PagedListGroup
 import com.star_zero.pagingretrofitsample.R
 import com.star_zero.pagingretrofitsample.databinding.ActivityMainBinding
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.ViewHolder
-import timber.log.Timber
 
 class MainActivity : AppCompatActivity() {
+
+    companion object {
+        private const val TAG = "MainActivity"
+    }
 
     private lateinit var binding: ActivityMainBinding
 
@@ -38,12 +42,12 @@ class MainActivity : AppCompatActivity() {
         }
 
         viewModel.repos.observe(this, Observer { pagedList ->
-            Timber.d("Receive Result")
+            Log.d(TAG, "Receive Result")
             pagedListGroup.submitList(pagedList)
         })
 
         viewModel.networkState.observe(this, Observer { networkState ->
-            Timber.d("NetworkState: $networkState")
+            Log.d(TAG, "NetworkState: $networkState")
         })
     }
 }

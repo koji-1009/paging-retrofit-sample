@@ -2,17 +2,21 @@ package com.star_zero.pagingretrofitsample.paging
 
 import android.arch.lifecycle.MutableLiveData
 import android.arch.paging.PageKeyedDataSource
+import android.util.Log
 import com.star_zero.pagingretrofitsample.api.GitHubAPI
 import com.star_zero.pagingretrofitsample.data.NetworkState
 import com.star_zero.pagingretrofitsample.data.Repo
 import com.xwray.groupie.Item
-import timber.log.Timber
 import java.io.IOException
 
-class PageKeyedRepoDataSource<T: Item<*>>(
+class PageKeyedRepoDataSource<T : Item<*>>(
     private val api: GitHubAPI,
     private val converter: (Repo) -> T
 ) : PageKeyedDataSource<Int, T>() {
+
+    companion object {
+        private const val TAG = "PageKeyedRepoDataSource"
+    }
 
     val networkState = MutableLiveData<NetworkState>()
 
@@ -40,7 +44,7 @@ class PageKeyedRepoDataSource<T: Item<*>>(
         perPage: Int,
         callback: (repos: List<Repo>, next: Int?) -> Unit
     ) {
-        Timber.d("page: $page, perPage: $perPage")
+        Log.d(TAG, "page: $page, perPage: $perPage")
 
         networkState.postValue(NetworkState.RUNNING)
 
@@ -63,7 +67,7 @@ class PageKeyedRepoDataSource<T: Item<*>>(
                 state = NetworkState.SUCCESS
             }
         } catch (e: IOException) {
-            Timber.w(e)
+            Log.w(TAG, e)
         }
 
         networkState.postValue(state)
