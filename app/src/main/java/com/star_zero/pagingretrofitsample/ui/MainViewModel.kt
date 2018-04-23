@@ -14,7 +14,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 class MainViewModel : ViewModel() {
 
     companion object {
-        private val PAGE_SIZE = 50
+        private const val PAGE_SIZE = 50
     }
 
     val repos: LiveData<PagedList<RepoItem>>
