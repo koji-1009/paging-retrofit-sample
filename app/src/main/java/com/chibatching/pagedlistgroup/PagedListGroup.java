@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.ListUpdateCallback;
 public class PagedListGroup<T extends Item> implements Group, GroupDataObserver {
 
     private GroupDataObserver parentObserver;
-    
+
     private final ListUpdateCallback listUpdateCallback = new ListUpdateCallback() {
         @Override
         public void onInserted(int position, int count) {
@@ -109,13 +109,16 @@ public class PagedListGroup<T extends Item> implements Group, GroupDataObserver 
 
     @Override
     public void onItemInserted(@NonNull Group group, int position) {
-        throw new UnsupportedOperationException();
+        int index = getItemPosition(group);
+        if (index >= 0 && parentObserver != null) {
+            parentObserver.onItemInserted(this, index);
+        }
     }
 
     @Override
     public void onItemChanged(@NonNull Group group, int position) {
         int index = getItemPosition(group);
-        if (index >= 0) {
+        if (index >= 0 && parentObserver != null) {
             parentObserver.onItemChanged(this, index);
         }
     }
@@ -123,39 +126,57 @@ public class PagedListGroup<T extends Item> implements Group, GroupDataObserver 
     @Override
     public void onItemChanged(@NonNull Group group, int position, Object payload) {
         int index = getItemPosition(group);
-        if (index >= 0) {
+        if (index >= 0 && parentObserver != null) {
             parentObserver.onItemChanged(this, index, payload);
         }
     }
 
     @Override
     public void onItemRemoved(@NonNull Group group, int position) {
-        throw new UnsupportedOperationException();
+        int index = getItemPosition(group);
+        if (index >= 0 && parentObserver != null) {
+            parentObserver.onItemRemoved(this, index);
+        }
     }
 
     @Override
     public void onItemRangeChanged(@NonNull Group group, int positionStart, int itemCount) {
-        throw new UnsupportedOperationException();
+        int index = getItemPosition(group);
+        if (index >= 0 && parentObserver != null) {
+            parentObserver.onItemRangeChanged(this, index, itemCount);
+        }
     }
 
     @Override
     public void onItemRangeChanged(@NonNull Group group, int positionStart, int itemCount, Object payload) {
-        throw new UnsupportedOperationException();
+        int index = getItemPosition(group);
+        if (index >= 0 && parentObserver != null) {
+            parentObserver.onItemRangeChanged(this, index, itemCount, payload);
+        }
     }
 
     @Override
     public void onItemRangeInserted(@NonNull Group group, int positionStart, int itemCount) {
-        throw new UnsupportedOperationException();
+        int index = getItemPosition(group);
+        if (index >= 0 && parentObserver != null) {
+            parentObserver.onItemRangeInserted(this, index, itemCount);
+        }
     }
 
     @Override
     public void onItemRangeRemoved(@NonNull Group group, int positionStart, int itemCount) {
-        throw new UnsupportedOperationException();
+        int index = getItemPosition(group);
+        if (index >= 0 && parentObserver != null) {
+            parentObserver.onItemRangeRemoved(this, index, itemCount);
+        }
     }
 
     @Override
     public void onItemMoved(@NonNull Group group, int fromPosition, int toPosition) {
-        throw new UnsupportedOperationException();
+        int index = getItemPosition(group);
+        if (index >= 0 && parentObserver != null) {
+            parentObserver.onItemRangeChanged(this, index, toPosition);
+        }
     }
 
     private int getItemPosition(@NonNull Group group) {
