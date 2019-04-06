@@ -1,8 +1,8 @@
 package com.star_zero.pagingretrofitsample.paging
 
-import android.arch.lifecycle.MutableLiveData
-import android.arch.paging.PageKeyedDataSource
 import android.util.Log
+import androidx.lifecycle.MutableLiveData
+import androidx.paging.PageKeyedDataSource
 import com.star_zero.pagingretrofitsample.api.GitHubAPI
 import com.star_zero.pagingretrofitsample.data.NetworkState
 import com.star_zero.pagingretrofitsample.data.Repo

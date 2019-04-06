@@ -1,17 +1,17 @@
 package com.chibatching.pagedlistgroup;
 
-import android.arch.paging.AsyncPagedListDiffer;
-import android.arch.paging.PagedList;
-import android.support.annotation.NonNull;
-import android.support.v7.recyclerview.extensions.AsyncDifferConfig;
-import android.support.v7.util.DiffUtil;
-import android.support.v7.util.ListUpdateCallback;
-
 import com.xwray.groupie.Group;
 import com.xwray.groupie.GroupDataObserver;
 import com.xwray.groupie.Item;
 
 import java.util.List;
+
+import androidx.annotation.NonNull;
+import androidx.paging.AsyncPagedListDiffer;
+import androidx.paging.PagedList;
+import androidx.recyclerview.widget.AsyncDifferConfig;
+import androidx.recyclerview.widget.DiffUtil;
+import androidx.recyclerview.widget.ListUpdateCallback;
 
 public class PagedListGroup<T extends Item> implements Group, GroupDataObserver {
 
@@ -135,6 +135,11 @@ public class PagedListGroup<T extends Item> implements Group, GroupDataObserver 
 
     @Override
     public void onItemRangeChanged(@NonNull Group group, int positionStart, int itemCount) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void onItemRangeChanged(@NonNull Group group, int positionStart, int itemCount, Object payload) {
         throw new UnsupportedOperationException();
     }
 
