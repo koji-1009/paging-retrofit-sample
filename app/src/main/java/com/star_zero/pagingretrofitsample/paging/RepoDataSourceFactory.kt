@@ -5,7 +5,7 @@ import com.star_zero.pagingretrofitsample.api.GitHubAPI
 import com.star_zero.pagingretrofitsample.data.Repo
 import com.xwray.groupie.Item
 
-class RepoDataSourceFactory<T : Item<*>>(
+class RepoDataSourceFactory<T>(
     api: GitHubAPI,
     converter: (Repo) -> T
 ) : DataSource.Factory<Int, T>() {

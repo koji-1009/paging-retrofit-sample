@@ -6,10 +6,9 @@ import androidx.paging.PageKeyedDataSource
 import com.star_zero.pagingretrofitsample.api.GitHubAPI
 import com.star_zero.pagingretrofitsample.data.NetworkState
 import com.star_zero.pagingretrofitsample.data.Repo
-import com.xwray.groupie.Item
 import java.io.IOException
 
-class PageKeyedRepoDataSource<T : Item<*>>(
+class PageKeyedRepoDataSource<T>(
     private val api: GitHubAPI,
     private val converter: (Repo) -> T
 ) : PageKeyedDataSource<Int, T>() {

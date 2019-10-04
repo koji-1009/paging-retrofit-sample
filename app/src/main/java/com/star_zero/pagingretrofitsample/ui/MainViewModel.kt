@@ -17,7 +17,7 @@ class MainViewModel : ViewModel() {
         private const val PAGE_SIZE = 50
     }
 
-    val repos: LiveData<PagedList<RepoItem>>
+    val repos: LiveData<PagedList<Repo>>
 
     val networkState: LiveData<NetworkState>
 
@@ -38,5 +38,5 @@ class MainViewModel : ViewModel() {
         networkState = factory.source.networkState
     }
 
-    private fun convertToItem(repo: Repo): RepoItem = RepoItem(repo)
+    private fun convertToItem(repo: Repo): Repo = repo
 }
